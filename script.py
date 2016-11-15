@@ -9,9 +9,9 @@ import copy
 # Converts data to CRF++ readable format
 def convertToCRFFormat(data_set, label_set, filename):
 	outputfile = open(filename,'w')
-
 	seq_no = 0
 	for feature in data_set:
+		print feature, label_set[seq_no]
 		outputfile.write(str(seq_no)  + '\t' + feature[0] + '\t' + feature[1] + '\t' +feature[2] + '\t' + 
 			feature[3] + '\t'  + feature[5] + '\t' +feature[6] + '\t' +  feature[7] + '\t' + label_set[seq_no])
 		outputfile.write('\n')
@@ -46,8 +46,10 @@ def parseInputData(filename):
 		start_date = datetime.datetime.strptime(line[0] + ' ' + line[1], "%Y-%m-%d %H:%M:%S")
 		end_date = datetime.datetime.strptime(line[2] + ' ' + line[3], "%Y-%m-%d %H:%M:%S")
 
+		# Get weekday from date
 		start_day = calendar.day_name[start_date.weekday()]
 		end_day =calendar.day_name[end_date.weekday()]
+		# Get discretized time
 		start_time = getTime(start_date)
 		end_time = getTime(end_date)
 
@@ -76,20 +78,17 @@ def parseLabelData(filename, input_data):
 		end_date = datetime.datetime.strptime(line[2] + ' ' + line[3], "%Y-%m-%d %H:%M:%S")
 		temp.append([start_date, end_date, line[4]])
 		line = inputfile.readline().split()
-	
+
 	iterr,	index = 0, 0
 	while iterr < len(input_data):
 		if index == len(temp) - 1:
-			output.append(temp[index-1][2])
+			output.append(temp[-1][2])
 			iterr = iterr + 1
-		elif input_data[iterr][0] < input_data[iterr-1][1]:
-			output.append('Idle')
+		elif input_data[iterr][0] >= temp[index][0] and input_data[iterr][1] <= temp[index][1]:
+			output.append(temp[index][2])
 			iterr = iterr + 1
 		elif input_data[iterr][0] < temp[index][0]:
 			output.append('Idle')
-			iterr = iterr + 1
-		elif input_data[iterr][0] < temp[index][1]:
-			output.append(temp[index][2])
 			iterr = iterr + 1
 		else:
 			index = index + 1
@@ -151,10 +150,10 @@ def SupportVectorMachines(train, test, train_label, test_label):
 	return score/len(y_pred)
 
 def main():
-	input_file = 'UCI-ADL-Binary-Dataset/OrdonezA_Sensors.txt'
+	input_file = 'UCI-ADL-Binary-Dataset/OrdonezB_Sensors.txt'
 	input_data =  parseInputData(input_file)
 
-	label_file = 'UCI-ADL-Binary-Dataset/OrdonezA_ADLs.txt'
+	label_file = 'UCI-ADL-Binary-Dataset/OrdonezB_ADLs.txt'
 	output_data, temp = parseLabelData(label_file, input_data)
 
 	for i in range(len(input_data)):
