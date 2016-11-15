@@ -147,10 +147,10 @@ def otherMachineLearning(input_data, output_data):
 	print "SVM: ", score/len(y_pred)
 
 def main():
-	input_file = 'UCI-ADL-Binary-Dataset/OrdonezA_Sensors.txt'
+	input_file = 'UCI-ADL-Binary-Dataset/OrdonezB_Sensors.txt'
 	input_data =  parseData(input_file)
 
-	label_file = 'UCI-ADL-Binary-Dataset/OrdonezA_ADLs.txt'
+	label_file = 'UCI-ADL-Binary-Dataset/OrdonezB_ADLs.txt'
 	output_data, temp = labelData(label_file, input_data)
 
 	for i in range(len(input_data)):
@@ -163,8 +163,8 @@ def main():
 	train_label = output_data[:int(len(input_data)*0.7)]
 	test_label = output_data[int(len(input_data)*0.7) + 1:]
 
-	convertToCRFFormat(train, train_label, 'training.txt')
-	convertToCRFFormat(test, test_label, 'testing.txt')
+	convertToCRFFormat(train, train_label, 'CRF++-0.58/training.txt')
+	convertToCRFFormat(test, test_label, 'CRF++-0.58/testing.txt')
 
 	otherMachineLearning(input_data, output_data)
 
