@@ -96,10 +96,11 @@ def parseLabelData(filename, input_data):
 	return output, temp
 
 def partitionData(input_data, output_data):
-	train = input_data[:int(len(input_data)*0.7)]
-	test = input_data[int(len(input_data)*0.7) + 1:]
-	train_label = output_data[:int(len(input_data)*0.7)]
-	test_label = output_data[int(len(input_data)*0.7) + 1:]
+	nu = 0.7
+	train = input_data[:int(len(input_data)*nu)]
+	test = input_data[int(len(input_data)*nu) + 1:]
+	train_label = output_data[:int(len(input_data)*nu)]
+	test_label = output_data[int(len(input_data)*nu) + 1:]
 	return train, test, train_label, test_label
 
 def discretizeData(input_data, output_data):
