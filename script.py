@@ -2,6 +2,7 @@ from __future__ import division
 import datetime, calendar
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB
+from sklearn import tree
 from sklearn import preprocessing
 import numpy as np
 import copy
@@ -11,7 +12,7 @@ def convertToCRFFormat(data_set, label_set, filename):
 	outputfile = open(filename,'w')
 	seq_no = 0
 	for feature in data_set:
-		print feature, label_set[seq_no]
+		#print feature, label_set[seq_no]
 		outputfile.write(str(seq_no)  + '\t' + feature[0] + '\t' + feature[1] + '\t' +feature[2] + '\t' + 
 			feature[3] + '\t'  + feature[5] + '\t' +feature[6] + '\t' +  feature[7] + '\t' + label_set[seq_no])
 		outputfile.write('\n')
@@ -138,7 +139,7 @@ def GaussianNaiveBayes(train, test, train_label, test_label):
 			score = score + 1
 	return score/len(y_pred)
 	
-	# Support Vector Machines (SVM)
+# Support Vector Machines (SVM)
 def SupportVectorMachines(train, test, train_label, test_label):
 	clf = svm.SVC()
 	clf.fit(train, train_label) 
@@ -149,15 +150,37 @@ def SupportVectorMachines(train, test, train_label, test_label):
 			score = score + 1
 	return score/len(y_pred)
 
+def DecisionTrees(train, test, train_label, test_label):
+	clf = tree.DecisionTreeClassifier()
+	clf = clf.fit(train, train_label)
+	y_pred = clf.predict(test)
+	score = 0
+	for i in range(len(y_pred) - 1):
+		if test_label[i] == y_pred[i]:
+			score = score + 1
+	return score/len(y_pred)
+
 def main():
-	input_file = 'UCI-ADL-Binary-Dataset/OrdonezB_Sensors.txt'
+	input_file = 'UCI-ADL-Binary-Dataset/OrdonezA_Sensors.txt'
 	input_data =  parseInputData(input_file)
 
-	label_file = 'UCI-ADL-Binary-Dataset/OrdonezB_ADLs.txt'
+	label_file = 'UCI-ADL-Binary-Dataset/OrdonezA_ADLs.txt'
 	output_data, temp = parseLabelData(label_file, input_data)
 
 	for i in range(len(input_data)):
 		input_data[i] = input_data[i][2:]
+
+	# Remove idle/unlabelled states - optional
+	# Removing unlabelled states increases accuracy
+	#inp, out = copy.deepcopy(input_data), copy.deepcopy(output_data)
+	#new_index = 0
+	#for index in range(len(output_data)):
+	#	if output_data[index] == 'Idle':
+	#		del inp[new_index]
+	#		del out[new_index]
+	#		new_index = new_index - 1
+	#	new_index = new_index + 1
+	#input_data, output_data = copy.deepcopy(inp), copy.deepcopy(out)
 
 	# Convert training and testing set to CRF++ readable format
 	train, test, train_label, test_label = partitionData(input_data, output_data)
@@ -169,6 +192,7 @@ def main():
 	train, test, train_label, test_label = partitionData(new_input_data, new_output_data)
 	print "Gaussian Naive Bayes: ", GaussianNaiveBayes(train, test, train_label, test_label)
 	print "Support Vector Machines: ", SupportVectorMachines(train, test, train_label, test_label)
+	print "Decision Tree: ", DecisionTrees(train, test, train_label, test_label)
 
 
 if __name__ == '__main__':
