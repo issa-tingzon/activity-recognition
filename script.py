@@ -6,6 +6,7 @@ from sklearn import preprocessing
 import numpy as np
 import copy
 
+# Converts data to CRF++ readable format
 def convertToCRFFormat(data_set, label_set, filename):
 	outputfile = open(filename,'w')
 
@@ -17,6 +18,8 @@ def convertToCRFFormat(data_set, label_set, filename):
 		seq_no = seq_no + 1
 	outputfile.close()
 
+# Discretizes start time and end time to: 
+#	early morning (0-5), morning (5-10), afternoon (10-15), evening (15-20), late evening (20-24)
 def getTime(date):
 	time = None
 	if date.time() <= datetime.time(5) and date.time() >= datetime.time(0):
@@ -31,11 +34,12 @@ def getTime(date):
 		time = 'late_evening'
 	return time
 
-def parseData(filename):
+# Parses sensor data (observations)
+def parseInputData(filename):
 	data = []
 	inputfile = open(filename)
-	line = inputfile.readline().strip() # headers
-	line = inputfile.readline().strip() # separator
+	line = inputfile.readline() # headers
+	line = inputfile.readline() # separator
 
 	line = inputfile.readline().split()  # first line
 	while line:
@@ -58,7 +62,8 @@ def parseData(filename):
 	inputfile.close()
 	return data
 
-def labelData(filename, input_data):
+# Parses class labels
+def parseLabelData(filename, input_data):
 	output = []
 	temp = []
 	inputfile = open(filename)
@@ -66,7 +71,6 @@ def labelData(filename, input_data):
 	line = inputfile.readline().strip().split()
 
 	line = inputfile.readline().split()
-	
 	while line:
 		start_date = datetime.datetime.strptime(line[0] + ' ' + line[1], "%Y-%m-%d %H:%M:%S")
 		end_date = datetime.datetime.strptime(line[2] + ' ' + line[3], "%Y-%m-%d %H:%M:%S")
@@ -91,7 +95,14 @@ def labelData(filename, input_data):
 			index = index + 1
 	return output, temp
 
-def otherMachineLearning(input_data, output_data):
+def partitionData(input_data, output_data):
+	train = input_data[:int(len(input_data)*0.7)]
+	test = input_data[int(len(input_data)*0.7) + 1:]
+	train_label = output_data[:int(len(input_data)*0.7)]
+	test_label = output_data[int(len(input_data)*0.7) + 1:]
+	return train, test, train_label, test_label
+
+def discretizeData(input_data, output_data):
 	#Transforming data into numeric values
 	trans = preprocessing.LabelEncoder()
 	output_data = trans.fit_transform(output_data)
@@ -106,7 +117,6 @@ def otherMachineLearning(input_data, output_data):
 		location.append(inp[5])
 		sensor.append(inp[6])
 		place.append(inp[7])
-
 	start_day = trans.fit_transform(start_day)
 	end_day = trans.fit_transform(end_day)
 	start_time = trans.fit_transform(start_time)
@@ -117,56 +127,49 @@ def otherMachineLearning(input_data, output_data):
 
 	for i in range(len(input_data)):
 		input_data[i] = [start_day[i], end_day[i], start_time[i], end_time[i], duration[i], location[i], sensor[i], place[i]]
+	return input_data, output_data
 
-	train = input_data[:int(len(input_data)*0.6)]
-	test = input_data[int(len(input_data)*0.6) + 1:]
-
-	train_label = output_data[:int(len(input_data)*0.6)]
-	test_label = output_data[int(len(input_data)*0.6) + 1:]
-
+# Gaussian Naive Bayes
+def GaussianNaiveBayes(train, test, train_label, test_label):
 	gnb = GaussianNB()
 	y_pred = gnb.fit(train, train_label).predict(test)
-	print test_label
-	print y_pred
-
 	score = 0
 	for i in range(len(y_pred) - 1):
 		if test_label[i] == y_pred[i]:
 			score = score + 1
-
-	print "Gaussian Naive Bayes: ",score/len(y_pred)
-
+	return score/len(y_pred)
+	
+	# Support Vector Machines (SVM)
+def SupportVectorMachines(train, test, train_label, test_label):
 	clf = svm.SVC()
 	clf.fit(train, train_label) 
 	y_pred = clf.predict(test)
-
 	score = 0
 	for i in range(len(y_pred) - 1):
 		if test_label[i] == y_pred[i]:
 			score = score + 1
-	print "SVM: ", score/len(y_pred)
+	return score/len(y_pred)
 
 def main():
-	input_file = 'UCI-ADL-Binary-Dataset/OrdonezB_Sensors.txt'
-	input_data =  parseData(input_file)
+	input_file = 'UCI-ADL-Binary-Dataset/OrdonezA_Sensors.txt'
+	input_data =  parseInputData(input_file)
 
-	label_file = 'UCI-ADL-Binary-Dataset/OrdonezB_ADLs.txt'
-	output_data, temp = labelData(label_file, input_data)
+	label_file = 'UCI-ADL-Binary-Dataset/OrdonezA_ADLs.txt'
+	output_data, temp = parseLabelData(label_file, input_data)
 
 	for i in range(len(input_data)):
 		input_data[i] = input_data[i][2:]
 
-	#print len(input_data), len(output_data)
-	train = input_data[:int(len(input_data)*0.7)]
-	test = input_data[int(len(input_data)*0.7) + 1:]
-
-	train_label = output_data[:int(len(input_data)*0.7)]
-	test_label = output_data[int(len(input_data)*0.7) + 1:]
-
+	# Convert training and testing set to CRF++ readable format
+	train, test, train_label, test_label = partitionData(input_data, output_data)
 	convertToCRFFormat(train, train_label, 'CRF++-0.58/training.txt')
 	convertToCRFFormat(test, test_label, 'CRF++-0.58/testing.txt')
 
-	otherMachineLearning(input_data, output_data)
+	# Other machine learning methods
+	new_input_data, new_output_data = discretizeData(input_data, output_data)
+	train, test, train_label, test_label = partitionData(new_input_data, new_output_data)
+	print "Gaussian Naive Bayes: ", GaussianNaiveBayes(train, test, train_label, test_label)
+	print "Support Vector Machines: ", SupportVectorMachines(train, test, train_label, test_label)
 
 
 if __name__ == '__main__':
