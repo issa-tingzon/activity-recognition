@@ -2,8 +2,8 @@
 Conditional random fields (CRFs) and other discriminative models for activity recognition on home environments using binary sensors
 
 #Dependencies
-Python 2.7+
-SciPy (scikitlearn and numpy)
+- Python 2.7+
+- SciPy (scikitlearn and numpy)
 
 #Quickstart
 1. Run `script.py` - this will create training and testing data files in the folder `CRF++-0.58`.
