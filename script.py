@@ -6,6 +6,10 @@ from sklearn import tree
 from sklearn import preprocessing
 import numpy as np
 import copy
+import pandas 
+import os 
+import subprocess
+import evaluate
 
 # Converts data to CRF++ readable format
 def convertToCRFFormat(data_set, label_set, filename):
@@ -13,8 +17,8 @@ def convertToCRFFormat(data_set, label_set, filename):
 	seq_no = 0
 	for feature in data_set:
 		#print feature, label_set[seq_no]
-		outputfile.write(str(seq_no)  + '\t' + feature[0] + '\t' + feature[1] + '\t' +feature[2] + '\t' + 
-			feature[3] + '\t'  + feature[5] + '\t' +feature[6] + '\t' +  feature[7] + '\t' + label_set[seq_no])
+		outputfile.write(str(seq_no)  + '\t' + str(feature[0]) + '\t' + str(feature[1]) + '\t' + str(feature[2]) + '\t' + 
+			str(feature[3]) + '\t'  + str(feature[4]) + '\t' + str(feature[5]) + '\t' + str(feature[6]) + '\t' + str(feature[7]) + '\t'+ label_set[seq_no])
 		outputfile.write('\n')
 		seq_no = seq_no + 1
 	outputfile.close()
@@ -95,12 +99,18 @@ def parseLabelData(filename, input_data):
 			index = index + 1
 	return output, temp
 
-def partitionData(input_data, output_data):
-	nu = 0.7
-	train = input_data[:int(len(input_data)*nu)]
-	test = input_data[int(len(input_data)*nu) + 1:]
-	train_label = output_data[:int(len(input_data)*nu)]
-	test_label = output_data[int(len(input_data)*nu) + 1:]
+#TODO: make this into a k-fold cross validation
+def partitionData(input_data, output_data, frac, total):
+	train, test, train_label, test_label = [], [], [], []
+	for i in range(len(input_data)):
+		if i >= int(len(input_data)*(frac-1)/total) and i <= int(len(input_data)*(frac)/total):
+			#print "test", int(len(input_data)*(frac-1)/total), i, int(len(input_data)*(frac)/total)
+			test.append(input_data[i])
+			test_label.append(output_data[i])
+		else:
+			#print "train", int(len(input_data)*(frac-1)/total), i, int(len(input_data)*(frac)/total)
+			train.append(input_data[i])
+			train_label.append(output_data[i])
 	return train, test, train_label, test_label
 
 def discretizeData(input_data, output_data):
@@ -125,6 +135,13 @@ def discretizeData(input_data, output_data):
 	location = trans.fit_transform(location)
 	sensor = trans.fit_transform(sensor)
 	place = trans.fit_transform(place)
+
+	#print len(duration)
+	#duration = pandas.qcut(duration, 5)
+	duration_temp = pandas.DataFrame({'duration': duration})
+	temp = pandas.qcut(duration_temp.rank(method='first').values, 5).codes + 1
+	for index in range(len(temp)):
+		duration[index] = temp[index][0]
 
 	for i in range(len(input_data)):
 		input_data[i] = [start_day[i], end_day[i], start_time[i], end_time[i], duration[i], location[i], sensor[i], place[i]]
@@ -161,6 +178,20 @@ def DecisionTrees(train, test, train_label, test_label):
 			score = score + 1
 	return score/len(y_pred)
 
+# Remove idle/unlabelled states - optional
+# Removing unlabelled states increases accuracy
+def removeIdleStates(input_data, output_data):
+	inp, out = copy.deepcopy(input_data), copy.deepcopy(output_data)
+	new_index = 0
+	for index in range(len(output_data)):
+		if output_data[index] == 'Idle':
+			del inp[new_index]
+			del out[new_index]
+			new_index = new_index - 1
+		new_index = new_index + 1
+	#input_data, output_data = copy.deepcopy(inp), copy.deepcopy(out)
+	return inp, out
+
 def main():
 	input_file = 'UCI-ADL-Binary-Dataset/OrdonezA_Sensors.txt'
 	input_data =  parseInputData(input_file)
@@ -171,30 +202,39 @@ def main():
 	for i in range(len(input_data)):
 		input_data[i] = input_data[i][2:]
 
-	# Remove idle/unlabelled states - optional
-	# Removing unlabelled states increases accuracy
-	#inp, out = copy.deepcopy(input_data), copy.deepcopy(output_data)
-	#new_index = 0
-	#for index in range(len(output_data)):
-	#	if output_data[index] == 'Idle':
-	#		del inp[new_index]
-	#		del out[new_index]
-	#		new_index = new_index - 1
-	#	new_index = new_index + 1
-	#input_data, output_data = copy.deepcopy(inp), copy.deepcopy(out)
+	input_data, output_data = removeIdleStates(input_data, output_data)
+	new_input_data, new_output_data = discretizeData(input_data, output_data)
 
 	# Convert training and testing set to CRF++ readable format
-	train, test, train_label, test_label = partitionData(input_data, output_data)
-	convertToCRFFormat(train, train_label, 'CRF++-0.58/training.txt')
-	convertToCRFFormat(test, test_label, 'CRF++-0.58/testing.txt')
+	k = 3
+	crf = 0
+	for i in range(1, k + 1):
+		train, test, train_label, test_label = partitionData(input_data, output_data, i, k)
+		convertToCRFFormat(train, train_label, 'CRF++-0.58/training.txt')
+		convertToCRFFormat(test, test_label, 'CRF++-0.58/testing.txt')
+
+		cwd = os.getcwd() + '\CRF++-0.58'
+		subprocess.call([cwd+'\crf_learn.exe',  cwd+'\\template',  cwd+'\\training.txt',  cwd+'\model'])
+		res = os.getcwd()+'\\result.txt'
+		with open(res, "w+") as output:
+			subprocess.call([cwd+'\crf_test.exe', '-m', cwd+'\\model',  cwd+'\\testing.txt'],  stdout=output)
+		true_output, predicted_output = evaluate.readResults(res)
+		crf = crf + evaluate.evaluate(true_output, predicted_output)
+
+	print "Conditional Random Field: ", crf/k
 
 	# Other machine learning methods
-	new_input_data, new_output_data = discretizeData(input_data, output_data)
-	train, test, train_label, test_label = partitionData(new_input_data, new_output_data)
-	print "Gaussian Naive Bayes: ", GaussianNaiveBayes(train, test, train_label, test_label)
-	print "Support Vector Machines: ", SupportVectorMachines(train, test, train_label, test_label)
-	print "Decision Tree: ", DecisionTrees(train, test, train_label, test_label)
+	#train, test, train_label, test_label = partitionData(new_input_data, new_output_data)
+	gb, svm, dt = 0, 0, 0
+	for i in range(1, k + 1):
+		train, test, train_label, test_label = partitionData(input_data, output_data, i, k)
+		gb = gb + GaussianNaiveBayes(train, test, train_label, test_label)
+		svm = svm + SupportVectorMachines(train, test, train_label, test_label)
+		dt = dt + DecisionTrees(train, test, train_label, test_label)
 
+	print "Gaussian Naive Bayes: ", gb/k
+	print "Support Vector Machines: ", svm/k
+	print "Decision Tree: ", dt/k
 
 if __name__ == '__main__':
     main()

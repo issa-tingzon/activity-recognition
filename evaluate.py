@@ -6,7 +6,7 @@ def evaluate(true_output, predicted_output):
 	correct = 0
 	size = len(true_output)
 
-	print true_output, predicted_output
+	#print true_output, predicted_output
 
 	for i in range(size):
 		true = true_output[i]

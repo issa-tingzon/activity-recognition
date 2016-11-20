@@ -1,122 +1,118 @@
-0	Wednesday	Wednesday	afternoon	afternoon	Fridge	Magnetic	Kitchen	Breakfast
-1	Wednesday	Wednesday	afternoon	afternoon	Microwave	Electric	Kitchen	Breakfast
-2	Wednesday	Wednesday	afternoon	afternoon	Seat	Pressure	Living	Spare_Time/TV
-3	Wednesday	Wednesday	afternoon	afternoon	Cupboard	Magnetic	Kitchen	Lunch
-4	Wednesday	Wednesday	afternoon	afternoon	Cooktop	PIR	Kitchen	Lunch
-5	Wednesday	Wednesday	afternoon	afternoon	Microwave	Electric	Kitchen	Lunch
-6	Wednesday	Wednesday	afternoon	afternoon	Fridge	Magnetic	Kitchen	Lunch
-7	Wednesday	Wednesday	afternoon	afternoon	Fridge	Magnetic	Kitchen	Lunch
-8	Wednesday	Wednesday	afternoon	afternoon	Cupboard	Magnetic	Kitchen	Lunch
-9	Wednesday	Wednesday	afternoon	afternoon	Fridge	Magnetic	Kitchen	Lunch
-10	Wednesday	Wednesday	afternoon	evening	Seat	Pressure	Living	Spare_Time/TV
-11	Wednesday	Wednesday	evening	evening	Basin	PIR	Bathroom	Grooming
-12	Wednesday	Wednesday	evening	evening	Toilet	Flush	Bathroom	Idle
-13	Wednesday	Wednesday	evening	evening	Seat	Pressure	Living	Spare_Time/TV
-14	Wednesday	Wednesday	evening	evening	Basin	PIR	Bathroom	Grooming
-15	Wednesday	Wednesday	evening	evening	Maindoor	Magnetic	Entrance	Leaving
-16	Wednesday	Wednesday	evening	evening	Maindoor	Magnetic	Entrance	Leaving
-17	Wednesday	Wednesday	evening	evening	Basin	PIR	Bathroom	Grooming
-18	Wednesday	Wednesday	evening	evening	Toilet	Flush	Bathroom	Idle
-19	Wednesday	Wednesday	evening	evening	Seat	Pressure	Living	Spare_Time/TV
-20	Wednesday	Wednesday	evening	evening	Maindoor	Magnetic	Entrance	Idle
-21	Wednesday	Wednesday	evening	evening	Fridge	Magnetic	Kitchen	Snack
-22	Wednesday	Wednesday	evening	evening	Cupboard	Magnetic	Kitchen	Snack
-23	Wednesday	Wednesday	evening	evening	Fridge	Magnetic	Kitchen	Snack
-24	Wednesday	Wednesday	late_evening	late_evening	Cupboard	Magnetic	Kitchen	Snack
-25	Wednesday	Wednesday	late_evening	late_evening	Fridge	Magnetic	Kitchen	Snack
-26	Wednesday	Wednesday	late_evening	late_evening	Toilet	Flush	Bathroom	Toileting
-27	Wednesday	Wednesday	late_evening	late_evening	Seat	Pressure	Living	Spare_Time/TV
-28	Wednesday	Wednesday	late_evening	late_evening	Maindoor	Magnetic	Entrance	Idle
-29	Wednesday	Wednesday	late_evening	late_evening	Seat	Pressure	Living	Spare_Time/TV
-30	Wednesday	Wednesday	late_evening	late_evening	Basin	PIR	Bathroom	Toileting
-31	Wednesday	Thursday	late_evening	early_morning	Seat	Pressure	Living	Spare_Time/TV
-32	Thursday	Thursday	early_morning	afternoon	Bed	Pressure	Bedroom	Sleeping
-33	Thursday	Thursday	afternoon	afternoon	Basin	PIR	Bathroom	Grooming
-34	Thursday	Thursday	afternoon	afternoon	Toilet	Flush	Bathroom	Idle
-35	Thursday	Thursday	afternoon	afternoon	Cabinet	Magnetic	Bathroom	Grooming
-36	Thursday	Thursday	afternoon	afternoon	Basin	PIR	Bathroom	Grooming
-37	Thursday	Thursday	afternoon	afternoon	Shower	PIR	Bathroom	Showering
-38	Thursday	Thursday	afternoon	afternoon	Toaster	Electric	Kitchen	Breakfast
-39	Thursday	Thursday	afternoon	afternoon	Cupboard	Magnetic	Kitchen	Breakfast
-40	Thursday	Thursday	afternoon	afternoon	Fridge	Magnetic	Kitchen	Breakfast
-41	Thursday	Thursday	afternoon	afternoon	Cooktop	PIR	Kitchen	Breakfast
-42	Thursday	Thursday	afternoon	afternoon	Microwave	Electric	Kitchen	Breakfast
-43	Thursday	Thursday	afternoon	afternoon	Seat	Pressure	Living	Spare_Time/TV
-44	Thursday	Thursday	afternoon	afternoon	Basin	PIR	Bathroom	Grooming
-45	Thursday	Thursday	afternoon	afternoon	Maindoor	Magnetic	Entrance	Leaving
-46	Thursday	Thursday	evening	evening	Maindoor	Magnetic	Entrance	Leaving
-47	Thursday	Thursday	evening	late_evening	Seat	Pressure	Living	Spare_Time/TV
-48	Thursday	Thursday	late_evening	late_evening	Basin	PIR	Bathroom	Grooming
-49	Thursday	Thursday	late_evening	late_evening	Seat	Pressure	Living	Spare_Time/TV
-50	Thursday	Thursday	late_evening	late_evening	Basin	PIR	Bathroom	Grooming
-51	Thursday	Friday	late_evening	early_morning	Seat	Pressure	Living	Spare_Time/TV
-52	Friday	Friday	early_morning	early_morning	Basin	PIR	Bathroom	Grooming
-53	Friday	Friday	early_morning	afternoon	Bed	Pressure	Bedroom	Sleeping
-54	Friday	Friday	afternoon	afternoon	Toilet	Flush	Bathroom	Toileting
-55	Friday	Friday	afternoon	afternoon	Cabinet	Magnetic	Bathroom	Grooming
-56	Friday	Friday	afternoon	afternoon	Basin	PIR	Bathroom	Grooming
-57	Friday	Friday	afternoon	afternoon	Shower	PIR	Bathroom	Showering
-58	Friday	Friday	afternoon	afternoon	Toaster	Electric	Kitchen	Breakfast
-59	Friday	Friday	afternoon	afternoon	Cupboard	Magnetic	Kitchen	Breakfast
-60	Friday	Friday	afternoon	afternoon	Fridge	Magnetic	Kitchen	Breakfast
-61	Friday	Friday	afternoon	afternoon	Cooktop	PIR	Kitchen	Breakfast
-62	Friday	Friday	afternoon	afternoon	Microwave	Electric	Kitchen	Breakfast
-63	Friday	Friday	afternoon	afternoon	Seat	Pressure	Living	Spare_Time/TV
-64	Friday	Friday	afternoon	afternoon	Basin	PIR	Bathroom	Grooming
-65	Friday	Friday	afternoon	afternoon	Maindoor	Magnetic	Entrance	Leaving
-66	Friday	Friday	evening	evening	Maindoor	Magnetic	Entrance	Leaving
-67	Friday	Friday	evening	evening	Seat	Pressure	Living	Spare_Time/TV
-68	Friday	Friday	evening	evening	Toilet	Flush	Bathroom	Idle
-69	Friday	Friday	evening	evening	Seat	Pressure	Living	Spare_Time/TV
-70	Friday	Friday	evening	evening	Basin	PIR	Bathroom	Grooming
-71	Friday	Friday	evening	evening	Seat	Pressure	Living	Idle
-72	Friday	Friday	evening	evening	Maindoor	Magnetic	Entrance	Leaving
-73	Friday	Friday	evening	evening	Maindoor	Magnetic	Entrance	Leaving
-74	Friday	Friday	evening	evening	Fridge	Magnetic	Kitchen	Idle
-75	Friday	Friday	evening	late_evening	Seat	Pressure	Living	Spare_Time/TV
-76	Friday	Friday	late_evening	late_evening	Basin	PIR	Bathroom	Grooming
-77	Friday	Saturday	late_evening	early_morning	Seat	Pressure	Living	Spare_Time/TV
-78	Saturday	Saturday	early_morning	early_morning	Basin	PIR	Bathroom	Grooming
-79	Saturday	Saturday	early_morning	early_morning	Seat	Pressure	Living	Spare_Time/TV
-80	Saturday	Saturday	early_morning	morning	Bed	Pressure	Bedroom	Sleeping
-81	Saturday	Saturday	morning	morning	Toilet	Flush	Bathroom	Idle
-82	Saturday	Saturday	morning	morning	Cabinet	Magnetic	Bathroom	Grooming
-83	Saturday	Saturday	morning	morning	Basin	PIR	Bathroom	Grooming
-84	Saturday	Saturday	morning	morning	Cabinet	Magnetic	Bathroom	Grooming
-85	Saturday	Saturday	morning	morning	Basin	PIR	Bathroom	Grooming
-86	Saturday	Saturday	morning	morning	Shower	PIR	Bathroom	Showering
-87	Saturday	Saturday	morning	morning	Cupboard	Magnetic	Kitchen	Breakfast
-88	Saturday	Saturday	morning	morning	Toaster	Electric	Kitchen	Breakfast
-89	Saturday	Saturday	morning	morning	Cupboard	Magnetic	Kitchen	Breakfast
-90	Saturday	Saturday	morning	morning	Fridge	Magnetic	Kitchen	Breakfast
-91	Saturday	Saturday	morning	morning	Microwave	Electric	Kitchen	Breakfast
-92	Saturday	Saturday	morning	morning	Cooktop	PIR	Kitchen	Breakfast
-93	Saturday	Saturday	afternoon	afternoon	Seat	Pressure	Living	Spare_Time/TV
-94	Saturday	Saturday	afternoon	afternoon	Basin	PIR	Bathroom	Grooming
-95	Saturday	Saturday	afternoon	afternoon	Maindoor	Magnetic	Entrance	Leaving
-96	Saturday	Saturday	evening	evening	Maindoor	Magnetic	Entrance	Leaving
-97	Saturday	Saturday	evening	late_evening	Seat	Pressure	Living	Spare_Time/TV
-98	Saturday	Saturday	late_evening	late_evening	Basin	PIR	Bathroom	Grooming
-99	Saturday	Saturday	late_evening	late_evening	Maindoor	Magnetic	Entrance	Leaving
-100	Sunday	Sunday	early_morning	early_morning	Maindoor	Magnetic	Entrance	Leaving
-101	Sunday	Sunday	early_morning	early_morning	Seat	Pressure	Living	Spare_Time/TV
-102	Sunday	Sunday	early_morning	early_morning	Basin	PIR	Bathroom	Idle
-103	Sunday	Sunday	early_morning	afternoon	Bed	Pressure	Bedroom	Sleeping
-104	Sunday	Sunday	afternoon	afternoon	Toilet	Flush	Bathroom	Idle
-105	Sunday	Sunday	afternoon	afternoon	Basin	PIR	Bathroom	Grooming
-106	Sunday	Sunday	afternoon	afternoon	Shower	PIR	Bathroom	Showering
-107	Sunday	Sunday	afternoon	afternoon	Toaster	Electric	Kitchen	Breakfast
-108	Sunday	Sunday	afternoon	afternoon	Cupboard	Magnetic	Kitchen	Breakfast
-109	Sunday	Sunday	afternoon	afternoon	Fridge	Magnetic	Kitchen	Breakfast
-110	Sunday	Sunday	afternoon	afternoon	Microwave	Electric	Kitchen	Breakfast
-111	Sunday	Sunday	afternoon	afternoon	Seat	Pressure	Living	Spare_Time/TV
-112	Sunday	Sunday	afternoon	afternoon	Cupboard	Magnetic	Kitchen	Lunch
-113	Sunday	Sunday	afternoon	evening	Cooktop	PIR	Kitchen	Lunch
-114	Sunday	Sunday	afternoon	afternoon	Cupboard	Magnetic	Kitchen	Lunch
-115	Sunday	Sunday	afternoon	afternoon	Cupboard	Magnetic	Kitchen	Lunch
-116	Sunday	Sunday	afternoon	afternoon	Cupboard	Magnetic	Kitchen	Lunch
-117	Sunday	Sunday	evening	evening	Fridge	Magnetic	Kitchen	Lunch
-118	Sunday	Sunday	evening	evening	Toilet	Flush	Bathroom	Toileting
-119	Sunday	Sunday	evening	evening	Basin	PIR	Bathroom	Grooming
-120	Sunday	Monday	evening	early_morning	Seat	Pressure	Living	Spare_Time/TV
-121	Monday	Monday	early_morning	morning	Bed	Pressure	Bedroom	Spare_Time/TV
+0	6	6	1	1	3	11	1	0	Toileting
+1	6	6	1	0	5	1	4	1	Sleeping
+2	6	6	0	0	1	2	2	0	Grooming
+3	6	6	0	0	4	0	3	0	Grooming
+4	6	6	0	0	4	9	3	0	Showering
+5	6	6	0	0	4	10	0	3	Breakfast
+6	6	6	0	0	3	4	2	3	Breakfast
+7	6	6	0	0	2	5	2	3	Breakfast
+8	6	6	0	0	4	7	0	3	Breakfast
+9	6	6	0	0	5	8	4	4	Spare_Time/TV
+10	6	6	0	0	2	4	2	3	Lunch
+11	6	6	0	0	4	3	3	3	Lunch
+12	6	6	0	0	4	7	0	3	Lunch
+13	6	6	0	0	2	5	2	3	Lunch
+14	6	6	0	0	1	5	2	3	Lunch
+15	6	6	0	0	1	4	2	3	Lunch
+16	6	6	0	0	1	5	2	3	Lunch
+17	6	6	0	2	5	8	4	4	Spare_Time/TV
+18	6	6	2	2	3	0	3	0	Grooming
+19	6	6	2	2	5	8	4	4	Spare_Time/TV
+20	6	6	2	2	4	0	3	0	Grooming
+21	6	6	2	2	2	6	2	2	Leaving
+22	6	6	2	2	2	6	2	2	Leaving
+23	6	6	2	2	1	0	3	0	Grooming
+24	6	6	2	2	5	8	4	4	Spare_Time/TV
+25	6	6	2	2	1	5	2	3	Snack
+26	6	6	2	2	1	4	2	3	Snack
+27	6	6	2	2	1	5	2	3	Snack
+28	6	6	3	3	1	4	2	3	Snack
+29	6	6	3	3	2	5	2	3	Snack
+30	6	6	3	3	3	11	1	0	Toileting
+31	6	6	3	3	4	8	4	4	Spare_Time/TV
+32	6	6	3	3	5	8	4	4	Spare_Time/TV
+33	6	6	3	3	2	0	3	0	Toileting
+34	6	4	3	1	5	8	4	4	Spare_Time/TV
+35	4	4	1	0	5	1	4	1	Sleeping
+36	4	4	0	0	2	0	3	0	Grooming
+37	4	4	0	0	1	2	2	0	Grooming
+38	4	4	0	0	1	0	3	0	Grooming
+39	4	4	0	0	4	9	3	0	Showering
+40	4	4	0	0	4	10	0	3	Breakfast
+41	4	4	0	0	3	4	2	3	Breakfast
+42	4	4	0	0	3	5	2	3	Breakfast
+43	4	4	0	0	4	3	3	3	Breakfast
+44	4	4	0	0	3	7	0	3	Breakfast
+45	4	4	0	0	5	8	4	4	Spare_Time/TV
+46	4	4	0	0	2	0	3	0	Grooming
+47	4	4	0	0	1	6	2	2	Leaving
+48	4	4	2	2	1	6	2	2	Leaving
+49	4	4	2	3	5	8	4	4	Spare_Time/TV
+50	4	4	3	3	2	0	3	0	Grooming
+51	4	4	3	3	5	8	4	4	Spare_Time/TV
+52	4	4	3	3	3	0	3	0	Grooming
+53	4	0	3	1	5	8	4	4	Spare_Time/TV
+54	0	0	1	1	3	0	3	0	Grooming
+55	0	0	1	0	5	1	4	1	Sleeping
+56	0	0	0	0	3	11	1	0	Toileting
+57	0	0	0	0	2	2	2	0	Grooming
+58	0	0	0	0	2	0	3	0	Grooming
+59	0	0	0	0	4	9	3	0	Showering
+60	0	0	0	0	4	10	0	3	Breakfast
+61	0	0	0	0	1	4	2	3	Breakfast
+62	0	0	0	0	3	5	2	3	Breakfast
+63	0	0	0	0	1	3	3	3	Breakfast
+64	0	0	0	0	3	7	0	3	Breakfast
+65	0	0	0	0	5	8	4	4	Spare_Time/TV
+66	0	0	0	0	4	0	3	0	Grooming
+67	0	0	0	0	1	6	2	2	Leaving
+68	0	0	2	2	1	6	2	2	Leaving
+69	0	0	2	2	4	8	4	4	Spare_Time/TV
+70	0	0	2	2	5	8	4	4	Spare_Time/TV
+71	0	0	2	2	1	0	3	0	Grooming
+72	0	0	2	2	2	6	2	2	Leaving
+73	0	0	2	2	2	6	2	2	Leaving
+74	0	0	2	3	5	8	4	4	Spare_Time/TV
+75	0	0	3	3	2	0	3	0	Grooming
+76	0	2	3	1	5	8	4	4	Spare_Time/TV
+77	2	2	1	1	3	0	3	0	Grooming
+78	2	2	1	1	4	8	4	4	Spare_Time/TV
+79	2	2	1	4	5	1	4	1	Sleeping
+80	2	2	4	4	2	2	2	0	Grooming
+81	2	2	4	4	4	0	3	0	Grooming
+82	2	2	4	4	2	2	2	0	Grooming
+83	2	2	4	4	1	0	3	0	Grooming
+84	2	2	4	4	4	9	3	0	Showering
+85	2	2	4	4	2	4	2	3	Breakfast
+86	2	2	4	4	4	10	0	3	Breakfast
+87	2	2	4	4	1	4	2	3	Breakfast
+88	2	2	4	4	3	5	2	3	Breakfast
+89	2	2	4	4	3	7	0	3	Breakfast
+90	2	2	4	4	1	3	3	3	Breakfast
+91	2	2	0	0	5	8	4	4	Spare_Time/TV
+92	2	2	0	0	3	0	3	0	Grooming
+93	2	2	0	0	2	6	2	2	Leaving
+94	2	2	2	2	2	6	2	2	Leaving
+95	2	2	2	3	5	8	4	4	Spare_Time/TV
+96	2	2	3	3	3	0	3	0	Grooming
+97	2	2	3	3	2	6	2	2	Leaving
+98	3	3	1	1	1	6	2	2	Leaving
+99	3	3	1	1	5	8	4	4	Spare_Time/TV
+100	3	3	1	0	5	1	4	1	Sleeping
+101	3	3	0	0	2	0	3	0	Grooming
+102	3	3	0	0	4	9	3	0	Showering
+103	3	3	0	0	4	10	0	3	Breakfast
+104	3	3	0	0	1	4	2	3	Breakfast
+105	3	3	0	0	3	5	2	3	Breakfast
+106	3	3	0	0	4	7	0	3	Breakfast
+107	3	3	0	0	5	8	4	4	Spare_Time/TV
+108	3	3	0	0	3	4	2	3	Lunch
+109	3	3	0	2	4	3	3	3	Lunch
+110	3	3	0	0	2	4	2	3	Lunch
+111	3	3	0	0	3	4	2	3	Lunch
+112	3	3	0	0	2	4	2	3	Lunch
+113	3	3	2	2	2	5	2	3	Lunch
+114	3	3	2	2	3	11	1	0	Toileting
+115	3	3	2	2	4	0	3	0	Grooming
+116	3	1	2	1	5	8	4	4	Spare_Time/TV
+117	1	1	1	4	5	1	4	1	Spare_Time/TV
