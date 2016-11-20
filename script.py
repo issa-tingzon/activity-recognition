@@ -99,18 +99,21 @@ def parseLabelData(filename, input_data):
 			index = index + 1
 	return output, temp
 
-#TODO: make this into a k-fold cross validation
-def partitionData(input_data, output_data, frac, total):
-	train, test, train_label, test_label = [], [], [], []
-	for i in range(len(input_data)):
-		if i >= int(len(input_data)*(frac-1)/total) and i <= int(len(input_data)*(frac)/total):
+def partitionData(input_data, output_data, nu):
+	train = input_data[:int(len(input_data)*nu)]
+	test = input_data[int(len(input_data)*nu) + 1:]
+	train_label = output_data[:int(len(input_data)*nu)]
+	test_label = output_data[int(len(input_data)*nu) + 1:]
+	#train, test, train_label, test_label = [], [], [], []
+	#for i in range(len(input_data)):
+	#	if i >= int(len(input_data)*(frac-1)/total) and i <= int(len(input_data)*(frac)/total):
 			#print "test", int(len(input_data)*(frac-1)/total), i, int(len(input_data)*(frac)/total)
-			test.append(input_data[i])
-			test_label.append(output_data[i])
-		else:
+	#		test.append(input_data[i])
+	#		test_label.append(output_data[i])
+	#	else:
 			#print "train", int(len(input_data)*(frac-1)/total), i, int(len(input_data)*(frac)/total)
-			train.append(input_data[i])
-			train_label.append(output_data[i])
+	#		train.append(input_data[i])
+	#		train_label.append(output_data[i])
 	return train, test, train_label, test_label
 
 def discretizeData(input_data, output_data):
@@ -206,35 +209,36 @@ def main():
 	new_input_data, new_output_data = discretizeData(input_data, output_data)
 
 	# Convert training and testing set to CRF++ readable format
-	k = 3
-	crf = 0
-	for i in range(1, k + 1):
-		train, test, train_label, test_label = partitionData(input_data, output_data, i, k)
-		convertToCRFFormat(train, train_label, 'CRF++-0.58/training.txt')
-		convertToCRFFormat(test, test_label, 'CRF++-0.58/testing.txt')
+	nu = 0.7
+	train, test, train_label, test_label = partitionData(input_data, output_data, nu)
+	convertToCRFFormat(train, train_label, 'CRF++-0.58/training.txt')
+	convertToCRFFormat(test, test_label, 'CRF++-0.58/testing.txt')
 
-		cwd = os.getcwd() + '\CRF++-0.58'
-		subprocess.call([cwd+'\crf_learn.exe',  cwd+'\\template',  cwd+'\\training.txt',  cwd+'\model'])
-		res = os.getcwd()+'\\result.txt'
-		with open(res, "w+") as output:
-			subprocess.call([cwd+'\crf_test.exe', '-m', cwd+'\\model',  cwd+'\\testing.txt'],  stdout=output)
-		true_output, predicted_output = evaluate.readResults(res)
-		crf = crf + evaluate.evaluate(true_output, predicted_output)
+	cwd = os.getcwd() + '\CRF++-0.58'
+	subprocess.call([cwd+'\crf_learn.exe',  cwd+'\\template',  cwd+'\\training.txt',  cwd+'\model'])
+	res = os.getcwd()+'\\result.txt'
+	with open(res, "w+") as output:
+		subprocess.call([cwd+'\crf_test.exe', '-m', cwd+'\\model',  cwd+'\\testing.txt'],  stdout=output)
+	true_output, predicted_output = evaluate.readResults(res)
 
-	print "Conditional Random Field: ", crf/k
+	print "Conditional Random Field: ", evaluate.evaluate(true_output, predicted_output)
 
 	# Other machine learning methods
 	#train, test, train_label, test_label = partitionData(new_input_data, new_output_data)
-	gb, svm, dt = 0, 0, 0
-	for i in range(1, k + 1):
-		train, test, train_label, test_label = partitionData(input_data, output_data, i, k)
-		gb = gb + GaussianNaiveBayes(train, test, train_label, test_label)
-		svm = svm + SupportVectorMachines(train, test, train_label, test_label)
-		dt = dt + DecisionTrees(train, test, train_label, test_label)
+	#gb, svm, dt, crf = 0, 0, 0, 0
+	#for i in range(1, k + 1):
+	#	train, test, train_label, test_label = partitionData(input_data, output_data, i, k)
+	#	gb = gb + GaussianNaiveBayes(train, test, train_label, test_label)
+	#	svm = svm + SupportVectorMachines(train, test, train_label, test_label)
+	#	dt = dt + DecisionTrees(train, test, train_label, test_label)
 
-	print "Gaussian Naive Bayes: ", gb/k
-	print "Support Vector Machines: ", svm/k
-	print "Decision Tree: ", dt/k
+	#print "Gaussian Naive Bayes: ", gb/k
+	#print "Support Vector Machines: ", svm/k
+	#print "Decision Tree: ", dt/k
+
+	print "Gaussian Naive Bayes: ", GaussianNaiveBayes(train, test, train_label, test_label)
+	print "Support Vector Machines: ", SupportVectorMachines(train, test, train_label, test_label)
+	print "Decision Tree: ", DecisionTrees(train, test, train_label, test_label)
 
 if __name__ == '__main__':
     main()

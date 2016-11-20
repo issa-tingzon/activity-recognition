@@ -233,3 +233,15 @@
 232	5	6	2	1	5	8	4	4	Spare_Time/TV
 233	6	6	1	1	2	0	3	0	Grooming
 234	6	6	1	1	5	8	4	4	Spare_Time/TV
+235	6	6	1	1	3	11	1	0	Toileting
+236	6	6	1	0	5	1	4	1	Sleeping
+237	6	6	0	0	1	2	2	0	Grooming
+238	6	6	0	0	4	0	3	0	Grooming
+239	6	6	0	0	4	9	3	0	Showering
+240	6	6	0	0	4	10	0	3	Breakfast
+241	6	6	0	0	3	4	2	3	Breakfast
+242	6	6	0	0	2	5	2	3	Breakfast
+243	6	6	0	0	4	7	0	3	Breakfast
+244	6	6	0	0	5	8	4	4	Spare_Time/TV
+245	6	6	0	0	2	4	2	3	Lunch
+246	6	6	0	0	4	3	3	3	Lunch
