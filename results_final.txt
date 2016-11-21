@@ -1,0 +1,28 @@
+
+Type = Raw
+=========================================
+
+OrdonezA Results
+==========================================
+Gaussian Naive Bayes:  0.422177042899
+Support Vector Machines:  0.745639038242
+Decision Tree:  0.725791348911
+Conditional Random Field:  0.902746818322
+
+OrdonezB Results
+==========================================
+Gaussian Naive Bayes:  0.0497811943329
+Support Vector Machines:  0.689015279337
+Decision Tree:  0.634430977189
+Conditional Random Field:  0.914497098476
+
+
+Type = Last Sensor
+=========================================
+
+OrdonezA Results
+==========================================
+Gaussian Naive Bayes:  0.625170356143
+Support Vector Machines:  0.979265341647
+Decision Tree:  0.959470267478
+Conditional Random Field:  0.976294327372
