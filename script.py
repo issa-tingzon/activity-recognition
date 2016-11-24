@@ -20,7 +20,7 @@ def convertToCRFFormat(data_set, label_set, filename):
 		if feature[1] != start:
 			outputfile.write('\n')
 			start = feature[1]
-		outputfile.write(str(seq_no) + '\t' + str(feature[1]) + '\t' + str(feature[2]) + '\t' + 
+		outputfile.write(str(feature[0]).replace (" ", "-") + '\t' + str(feature[1]) + '\t' + str(feature[2]) + '\t' + 
 			str(feature[3]) + '\t'  + str(feature[4]) + '\t'+ str(feature[5]) + '\t'+ str(feature[6]) + '\t'+ str(feature[7]) + 
 			'\t'+ str(feature[8]) + '\t'+ str(feature[9]) + '\t'+ str(feature[10]) + '\t'+ str(feature[11]) + '\t'+ str(feature[12]) + 
 			'\t'+ str(feature[13]) + '\t'+ str(feature[14]) +  '\t' + label_set[seq_no])
@@ -92,10 +92,13 @@ def parseInputData(filename):
 		time = getTime(curr)
 		#sensors = []
 		for element in data:
-			if 	(curr + datetime.timedelta(seconds=59) >= element[1] and curr  <= element[1]) or \
+			if 	(curr  <= element[1] and curr + datetime.timedelta(seconds=59) >= element[1]) or \
 				(curr <= element[0] and curr + datetime.timedelta(seconds=59) >= element[0]) or \
-				(curr  < element[0] and curr + datetime.timedelta(seconds=59) > element[1]):
-				sensors = [element[2]] #sensors.append(element[2]) 
+				(curr  <= element[0] and curr + datetime.timedelta(seconds=59) >= element[1]) or \
+				(curr  >= element[0] and curr + datetime.timedelta(seconds=59) <= element[1]):
+				sensors = [element[2]] 				# Last Sensor
+				#sensors.append(element[2]) 		# Raw
+		#if sensors != []:
 		input_data.append([curr, day, time, sensors])
 		curr = curr + datetime.timedelta(seconds=60)
 	return input_data
@@ -198,7 +201,8 @@ def GaussianNaiveBayes(train, test, train_label, test_label):
 	for i in range(len(y_pred) - 1):
 		if test_label[i] == y_pred[i]:
 			score = score + 1
-	return score/len(y_pred)
+	gb_fm = evaluate.calculateFmeasure(test_label, y_pred)
+	return score/len(y_pred), gb_fm
 	
 # Support Vector Machines (SVM)
 def SupportVectorMachines(train, test, train_label, test_label):
@@ -209,7 +213,8 @@ def SupportVectorMachines(train, test, train_label, test_label):
 	for i in range(len(y_pred) - 1):
 		if test_label[i] == y_pred[i]:
 			score = score + 1
-	return score/len(y_pred)
+	svm_fm = evaluate.calculateFmeasure(test_label, y_pred)
+	return score/len(y_pred), svm_fm
 
 #Decision Tree Classifier
 def DecisionTrees(train, test, train_label, test_label):
@@ -220,7 +225,9 @@ def DecisionTrees(train, test, train_label, test_label):
 	for i in range(len(y_pred) - 1):
 		if test_label[i] == y_pred[i]:
 			score = score + 1
-	return score/len(y_pred)
+
+	dt_fm = evaluate.calculateFmeasure(test_label, y_pred)
+	return score/len(y_pred), dt_fm
 
 # Remove idle/unlabelled states
 def removeIdleStates(input_data, output_data):
@@ -235,18 +242,18 @@ def removeIdleStates(input_data, output_data):
 	return inp, out
 
 def main():
+	choice = 'OrdonezA'
 	no_sensors = 12
-	choice = 'A'
-	if choice == 'A':
+	if choice == 'OrdonezA':
 		no_days = 14
 		sensor_list = ['Shower', 'Basin', 'Cooktop', 'Maindoor', 'Fridge', 'Cabinet', 'Cupboard', 'Toilet', 'Seat', 'Bed', 'Microwave', 'Toaster'] #OrdonezA
-		input_file = 'UCI-ADL-Binary-Dataset/OrdonezA_Sensors.txt'
-		label_file = 'UCI-ADL-Binary-Dataset/OrdonezA_ADLs.txt'
-	elif choice=='B':
+		input_file = 'UCI-ADL-Binary-Dataset/Unsegmented_Dataset/OrdonezA_Sensors.txt'
+		label_file = 'UCI-ADL-Binary-Dataset/Unsegmented_Dataset/OrdonezA_ADLs.txt'
+	elif choice=='OrdonezB':
 		no_days = 21
 		sensor_list = ['Shower', 'Basin', 'Door Kitchen', 'Door Living', 'Door Bedroom', 'Maindoor','Fridge', 'Cupboard', 'Toilet', 'Seat', 'Bed', 'Microwave'] #OrdonezB
-		input_file = 'UCI-ADL-Binary-Dataset/OrdonezB_Sensors.txt'
-		label_file = 'UCI-ADL-Binary-Dataset/OrdonezB_ADLs.txt'
+		input_file = 'UCI-ADL-Binary-Dataset/Unsegmented_Dataset/OrdonezB_Sensors.txt'
+		label_file = 'UCI-ADL-Binary-Dataset/Unsegmented_Dataset/OrdonezB_ADLs.txt'
 
 	input_data =  parseInputData(input_file)
 	output_data, temp = parseLabelData(label_file, input_data)
@@ -258,25 +265,32 @@ def main():
 	# Sets features
 	input_data = setFeatures(input_data, sensor_list)
 	# Remove idle states
-	input_data, output_data = removeIdleStates(input_data, output_data)
+	#input_data, output_data = removeIdleStates(input_data, output_data)
 	# Partition days for 'leave-one-day-out' cross validation
 	input_days, output_days = partitionDays(input_data, output_data, no_days)
 
 	# Cross Validation
-	gb, svm, dt, crf = 0, 0, 0, 0
+	gb_acc, svm_acc, dt_acc, crf_acc = 0, 0, 0, 0
+	gb_fm, svm_fm, dt_fm, crf_fm = 0, 0, 0, 0
 	for i in range(no_days):
 		# Convert training and testing set to CRF++ readable format
 		train, test, train_label, test_label = partitionData(input_days, output_days, i)
-		convertToCRFFormat(train, train_label, 'CRF++-0.58/training.txt')
+		convertToCRFFormat(train, train_label, 'CRF++-0.58/training.txt') #
+		convertToCRFFormat(train, train_label, 'UCI-ADL-Binary-Dataset/Segmented_Dataset/' + choice + '/with_idle_states/Last_Sensor/' + str(i + 1) + '/training.txt')
 		convertToCRFFormat(test, test_label, 'CRF++-0.58/testing.txt')
+		convertToCRFFormat(test, test_label, 'UCI-ADL-Binary-Dataset/Segmented_Dataset/' + choice + '/with_idle_states/Last_Sensor/' + str(i + 1) + '/test.txt')
 		
-		cwd = os.getcwd() + '\CRF++-0.58'
-		subprocess.call([cwd+'\crf_learn.exe',  cwd+'\\template',  cwd+'\\training.txt',  cwd+'\model'])
-		res = os.getcwd()+'\\result.txt'
-		with open(res, "w+") as output:
-			subprocess.call([cwd+'\crf_test.exe', '-m', cwd+'\\model',  cwd+'\\testing.txt'],  stdout=output)
-		true_output, predicted_output = evaluate.readResults(res)
-		crf = crf + evaluate.evaluate(true_output, predicted_output)
+		#cwd = os.getcwd() + '\CRF++-0.58'
+		#subprocess.call([cwd+'\crf_learn.exe',  cwd+'\\template',  cwd+'\\training.txt',  cwd+'\model'])
+		#res = os.getcwd()+'\\result.txt'
+		#with open(res, "w+") as output:
+		#	subprocess.call([cwd+'\crf_test.exe', '-m', cwd+'\\model',  cwd+'\\testing.txt'],  stdout=output)
+
+		#true_output, predicted_output = evaluate.readResults(res)
+		#crf1 = evaluate.evaluateAccuracy(true_output, predicted_output)
+		#crf2 = evaluate.calculateFmeasure(true_output, predicted_output)
+		#crf_acc = crf_acc + crf1
+		#crf_fm = crf_fm + crf2
 
 		# Data partitioning for other machine learning methods
 		new_input_data, new_output_data = discretizeData(input_data, output_data)
@@ -288,15 +302,22 @@ def main():
 		for i in range(len(test)):
 			test[i] = test[i][1:]
 		# Apply other machine learning methods
-		gb = gb + GaussianNaiveBayes(train, test, train_label, test_label)
-		svm = svm + SupportVectorMachines(train, test, train_label, test_label)
-		dt = dt + DecisionTrees(train, test, train_label, test_label)
-		print gb, svm, dt, crf
+		gb1, gb2 = GaussianNaiveBayes(train, test, train_label, test_label)
+		gb_acc = gb_acc + gb1
+		gb_fm = gb_fm + gb2
+		svm1, svm2 = SupportVectorMachines(train, test, train_label, test_label)
+		svm_acc = svm_acc + svm1
+		svm_fm = svm_fm + svm2
+		dt1, dt2 = DecisionTrees(train, test, train_label, test_label)
+		dt_acc = dt_acc + dt1
+		dt_fm = dt_fm + dt2
+		print gb1, svm1, dt1 #, crf1
+		print gb2, svm2, dt2#, crf2
 
-	print "Gaussian Naive Bayes: ", gb/no_days
-	print "Support Vector Machines: ", svm/no_days
-	print "Decision Tree: ", dt/no_days
-	print "Conditional Random Field: ", crf/no_days
+	print "Gaussian Naive Bayes - Accuracy:", gb_acc/no_days, ' Fmeasure: ', gb_fm/no_days
+	print "Support Vector Machines - Accuracy:", svm_acc/no_days, ' Fmeasure: ', svm_fm/no_days
+	print "Decision Tree- Accuracy:", dt_acc/no_days, ' Fmeasure: ',dt_fm/no_days
+	#print "Conditional Random Field - Accuracy:", crf_acc/no_days, ' Fmeasure: ',crf_fm/no_days
 
 if __name__ == '__main__':
     main()

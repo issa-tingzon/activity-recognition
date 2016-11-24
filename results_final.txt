@@ -1,28 +1,136 @@
+WITHOUT IDLE STATES
+========================================
+	Type = Raw
+	=========================================
+		OrdonezA Results
+		==========================================
+		Gaussian Naive Bayes 
+			Accuracy: 0.975718037313  
+			Fmeasure:  0.748647053156
+		Support Vector Machines 
+			Accuracy: 0.975159246116  
+			Fmeasure:  0.743344495888
+		Decision Tree
+			Accuracy: 0.946023356744  
+			Fmeasure:  0.732320937623
+		Conditional Random Field 
+			Accuracy: 0.964600351128  
+			Fmeasure:  0.828348760951
+
+
+		OrdonezB Results
+		==========================================
+		Gaussian Naive Bayes 
+			Accuracy: 0.585762482906  
+			Fmeasure:  0.353703379899
+		Support Vector Machines 
+			Accuracy: 0.89212371096 
+			Fmeasure:  0.633768272469
+		Decision Tree
+			Accuracy: 0.832136384997  
+			Fmeasure:  0.614125081143
+		Conditional Random Field 
+			Accuracy: 0.923274622144  
+			Fmeasure:  0.738389264796
+
+
+	Type = Last Sensor
+	=========================================
+		OrdonezA Results
+		==========================================
+		Gaussian Naive Bayes  
+			Accuracy: 0.748028970159  
+			Fmeasure:  0.650443087044
+		Support Vector Machines 
+			Accuracy: 0.980942762257  
+			Fmeasure:  0.74207007734
+		Decision Tree 
+			Accuracy: 0.967091557943  
+			Fmeasure:  0.71899401531
+		Conditional Random Field 
+			Accuracy: 0.980295103621  
+			Fmeasure:  0.793376924371
+
+		OrdonezB Results
+		==========================================
+		Gaussian Naive Bayes 
+			Accuracy: 0.807765478615  
+			Fmeasure:  0.553602677001
+		Support Vector Machines 
+			Accuracy: 0.944416247962  
+			Fmeasure:  0.695038655717
+		Decision Tree
+			Accuracy: 0.933336477041  
+			Fmeasure:  0.678306410165
+		Conditional Random Field 
+			Accuracy: 0.949277089024  
+			Fmeasure:  0.727419787009
+
+
+WITH IDLE STATES
+========================================
 
 Type = Raw
-=========================================
+	=========================================
+		OrdonezA Results
+		==========================================
+		Gaussian Naive Bayes 
+			Accuracy: 0.935763675085  
+			Fmeasure:  0.64365112237
+		Support Vector Machines 
+			Accuracy: 0.929414572004  
+			Fmeasure:  0.66145314802
+		Decision Tree
+			Accuracy: 0.888260965  
+			Fmeasure:  0.63620568107
+		Conditional Random Field 
+			Accuracy: 0.919648266306  
+			Fmeasure:  0.712214188536
 
-OrdonezA Results
-==========================================
-Gaussian Naive Bayes:  0.422177042899
-Support Vector Machines:  0.745639038242
-Decision Tree:  0.725791348911
-Conditional Random Field:  0.902746818322
+		OrdonezB Results
+		==========================================
+		Gaussian Naive Bayes 
+			Accuracy: 0.532457962945  
+			Fmeasure:  0.333755814861
+		Support Vector Machines 
+			Accuracy: 0.812125406166  
+			Fmeasure:  0.589844159907
+		Decision Tree
+			Accuracy: 0.750154782077  
+			Fmeasure:  0.548336219271
+		Conditional Random Field 
+			Accuracy: 0.872751322751  
+			Fmeasure:  0.66553617149
 
-OrdonezB Results
-==========================================
-Gaussian Naive Bayes:  0.0497811943329
-Support Vector Machines:  0.689015279337
-Decision Tree:  0.634430977189
-Conditional Random Field:  0.914497098476
 
+	Type = Last Sensor
+	=========================================
+		OrdonezA Results
+		==========================================
+		Gaussian Naive Bayes 
+			Accuracy: 0.718485816059  
+			Fmeasure:  0.539437923127
+		Support Vector Machines 
+			Accuracy: 0.945191214575  
+			Fmeasure:  0.584058560099
+		Decision Tree
+			Accuracy: 0.916150787214  
+			Fmeasure:  0.582839308862
+		Conditional Random Field 
+			Accuracy: 0.920278146061  
+			Fmeasure:  0.589401464484
 
-Type = Last Sensor
-=========================================
-
-OrdonezA Results
-==========================================
-Gaussian Naive Bayes:  0.625170356143
-Support Vector Machines:  0.979265341647
-Decision Tree:  0.959470267478
-Conditional Random Field:  0.976294327372
+		OrdonezB Results
+		==========================================
+		Gaussian Naive Bayes 
+			Accuracy: 0.714132900249  
+			Fmeasure:  0.476217785255
+		Support Vector Machines 
+			Accuracy: 0.878987731712  
+			Fmeasure:  0.647478744219
+		Decision Tree- Accuracy: 
+			0.874260731613  
+			Fmeasure:  0.65254017458
+		Conditional Random Field 
+			Accuracy: 0.879133597884  
+			Fmeasure:  0.642184023385
