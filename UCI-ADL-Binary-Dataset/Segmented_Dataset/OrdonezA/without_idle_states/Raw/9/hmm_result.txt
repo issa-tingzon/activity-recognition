@@ -1,0 +1,32 @@
+/home/innacalimbahin/Desktop/activity-recognition-master/UCI-ADL-Binary-Dataset/Segmented_Dataset/OrdonezA/without_idle_states/Raw/9 
+
+
+-----------------------------------------------------------------------------------------
+Total test items: 1352
+
+Confusion matrix:
+0	5	0	0	2	15	0	0	0	0	
+
+0	0	0	0	0	0	0	0	0	0	
+
+0	0	14	0	0	0	0	0	0	0	
+
+0	0	0	566	0	0	0	0	0	0	
+
+0	0	0	0	4	0	0	0	0	0	
+
+0	0	0	0	0	21	0	0	0	0	
+
+0	0	0	0	0	0	0	0	0	0	
+
+0	4	0	0	0	0	0	0	0	1	
+
+0	0	0	0	0	0	0	0	710	1	
+
+0	1	0	0	0	0	0	0	1	7	
+
+Accuracy = 0.977811
+Precision = 0.577637
+Recall = 0.502637
+F-measure = 0.537534
+-----------------------------------------------------------------------------------------

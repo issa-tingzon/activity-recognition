@@ -1,0 +1,32 @@
+/home/innacalimbahin/Desktop/activity-recognition-master/UCI-ADL-Binary-Dataset/Segmented_Dataset/OrdonezB/without_idle_states/Last_Sensor/16 
+
+
+-----------------------------------------------------------------------------------------
+Total test items: 1340
+
+Confusion matrix:
+552	1	0	0	0	0	0	0	1	0	
+
+0	3	0	3	0	0	0	0	5	0	
+
+0	0	8	0	0	0	0	0	0	1	
+
+0	0	0	483	0	0	0	0	0	0	
+
+0	0	0	0	6	0	0	0	0	0	
+
+1	7	0	1	1	0	0	0	5	0	
+
+0	0	0	0	0	0	0	0	0	0	
+
+1	1	0	0	2	0	0	0	5	0	
+
+0	0	0	0	0	0	0	0	238	0	
+
+0	0	0	0	0	0	0	0	0	15	
+
+Accuracy = 0.973881
+Precision = 0.615801
+Recall = 0.577935
+F-measure = 0.596267
+-----------------------------------------------------------------------------------------

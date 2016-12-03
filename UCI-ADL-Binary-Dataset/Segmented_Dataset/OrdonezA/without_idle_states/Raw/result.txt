@@ -1,0 +1,7 @@
+/home/innacalimbahin/Desktop/activity-recognition-master/UCI-ADL-Binary-Dataset/Segmented_Dataset/OrdonezA/without_idle_states/Raw 
+
+
+-----------------------------------------------------------------------------------------
+Average Accuracy = 0.974825
+Average F-measure = 0.611520
+-----------------------------------------------------------------------------------------

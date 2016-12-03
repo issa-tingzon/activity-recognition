@@ -1,0 +1,7 @@
+/home/innacalimbahin/Desktop/activity-recognition-master/UCI-ADL-Binary-Dataset/Segmented_Dataset/OrdonezB/with_idle_states/Last_Sensor 
+
+
+-----------------------------------------------------------------------------------------
+Average Accuracy = 0.862027
+Average F-measure = 0.495716
+-----------------------------------------------------------------------------------------
